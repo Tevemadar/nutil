@@ -1,7 +1,0 @@
-Annotations
-1 error and 1 notice
-build
-Windows Server 2019 has been retired. The Windows Server 2019 image has been removed as of 2025-06-30. For more details, see https://github.com/actions/runner-images/issues/12045
-build
-The windows-2019 runner image is being deprecated, consider switching to windows-2022(windows-latest) or windows-2025 instead. For more details see https://github.com/actions/runner-images/issues/12045.
-
