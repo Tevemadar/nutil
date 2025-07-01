@@ -15,8 +15,8 @@ jobs:
 
 
   build:
-    runs-on: macos-latest
-    if: "contains(github.event.head_commit.message, 'mbmp')"
+    runs-on: windows-2019
+    #if: "contains(github.event.head_commit.message, 'bump')"
     steps:
 
 
@@ -43,14 +43,16 @@ jobs:
 
 
     - name: Compile
-      run : "Publish/publish_mac/publish_ci.sh"
+      run : "Publish\\windows_ci\\windows_build.cmd"
+    - name: Build_app
+      run : "Publish\\windows_ci\\build_dir.cmd"
 #    - name: Nutil_validator
 #      run : "Publish\\windows_ci\\validator.cmd"
-#    - name: Zipping  
-#      uses: papeloto/action-zip@v1
-#      with:
-#        files: nutil 
-#        dest: nutil_win.zip
+    - name: Zipping  
+      uses: papeloto/action-zip@v1
+      with:
+        files: nutil 
+        dest: nutil_win.zip
           
 
     - name: Create Release
@@ -62,19 +64,19 @@ jobs:
         tag_name: ${{ steps.tag_version.outputs.new_tag }}
         release_name: Release ${{ steps.tag_version.outputs.new_tag }}
         body: |
-          Macos version of Nutil. 
+          Automated Release by GitHub Action CI
         draft: false
         prerelease: true
     - name: Rename file
-      run: "mv nutil_macos.dmg nutil_macos_${{ steps.tag_version.outputs.new_tag }}.dmg"      
-    - name: Upload Release Asset (x64) macos
+      run: "mv nutil_win.zip nutil_win_${{ steps.tag_version.outputs.new_tag }}.zip"      
+    - name: Upload Release Asset (x64)
       id: upload-release-asset-x64
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nutil_macos_${{ steps.tag_version.outputs.new_tag }}.dmg
-        asset_name: nutil_macos_${{ steps.tag_version.outputs.new_tag }}.dmg
-        asset_content_type: application/dmg
+        asset_path: ./nutil_win_${{ steps.tag_version.outputs.new_tag }}.zip
+        asset_name: nutil_win_${{ steps.tag_version.outputs.new_tag }}.zip
+        asset_content_type: application/zip
 
