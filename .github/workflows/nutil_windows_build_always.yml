@@ -47,6 +47,8 @@ jobs:
         
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1
+        with:
+          vs-version: '[16.10,16.11)'
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
