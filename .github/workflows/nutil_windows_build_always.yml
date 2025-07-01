@@ -51,7 +51,7 @@ jobs:
         uses: jurplel/install-qt-action@v2
         with:
           version: "6.0.1"
-          setup-pyton: false
+          setup-python: false
           tools: "tools_ifw,4.0.0,qt.tools.ifw.40 tools_qtcreator,9.0.0,qt.tools.qtcreator"
       - name: Write version file
         run: "echo ${{ steps.tag_version.outputs.new_tag }}>version.txt"
